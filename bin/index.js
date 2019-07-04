@@ -22,6 +22,13 @@ commander
     .action(function (dir) {
     console.log('preview %s', dir);
 });
+commander
+    .command('build [dir]')
+    .description('生成静态HTML')
+    .option('-o, --output <dir>', '生成的静态HTML存放目录')
+    .action(function (dir, options) {
+    console.log('create %s, output %s', dir, options.output);
+});
 function help() {
     commander.parse(process.argv);
     if (commander.args.length < 1)
