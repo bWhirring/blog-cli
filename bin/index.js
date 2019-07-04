@@ -2,6 +2,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var commander = require("commander");
+var preview_1 = require("./preview");
 var version = require('../package.json').version;
 commander.version(version);
 commander
@@ -19,9 +20,7 @@ commander
 commander
     .command('preview [dir]')
     .description('实时预览')
-    .action(function (dir) {
-    console.log('preview %s', dir);
-});
+    .action(preview_1.default);
 commander
     .command('build [dir]')
     .description('生成静态HTML')

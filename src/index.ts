@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import * as commander from 'commander';
+import preview from './preview';
 
 const { version } = require('../package.json');
 
@@ -23,9 +24,7 @@ commander
 commander
   .command('preview [dir]')
   .description('实时预览')
-  .action(dir => {
-    console.log('preview %s', dir);
-  });
+  .action(preview);
 
 commander
   .command('build [dir]')

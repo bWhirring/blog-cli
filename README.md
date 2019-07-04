@@ -16,6 +16,16 @@
 | blog build [dir] [--output target] | 生成整站静态HTML                 |
 
 
+### config(配置文件)
+
+`config/default.json`
+
+### 实时预览
+
+```
+blog preview [dir]
+```
+> 访问[链接](http://localhost:3008/posts/2019-07/hello)
 
 
 #### 参考资料
