@@ -14,3 +14,10 @@
 | blog create [dir]                  | 创建一个空的博客，默认为当前目录 |
 | blog preview [dir]                 | 实时预览                         |
 | blog build [dir] [--output target] | 生成整站静态HTML                 |
+
+
+
+
+#### 参考资料
+
+- nodejs实战(第2版)
