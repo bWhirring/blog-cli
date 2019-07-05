@@ -1,3 +1,10 @@
-## hello world
+---
+title: Hello
+date: 2019-07-05
+---
 
-<span style='color:red'>huhu</span>
+<span style='color:red'>blog-cli</span>
+
+```
+blog preview example
+```

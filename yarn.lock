@@ -22,6 +22,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/ejs@^2.6.3":
+  version "2.6.3"
+  resolved "https://registry.yarnpkg.com/@types/ejs/-/ejs-2.6.3.tgz#b6509e9925d7eb5e95c8c73b6492e5baae7c1e6a"
+  integrity sha512-/F+qQ0Fr0Dr1YvHjX+FCvbba4sQ27RdCPDqmP/si0e1v1GOkbQ3VRBvZPSQM7NoQ3iz3SyiJVscCP2f0vKuIhQ==
+
 "@types/express-serve-static-core@*":
   version "4.16.7"
   resolved "https://registry.yarnpkg.com/@types/express-serve-static-core/-/express-serve-static-core-4.16.7.tgz#50ba6f8a691c08a3dd9fa7fba25ef3133d298049"
@@ -175,6 +180,11 @@ ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
+
+ejs@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/ejs/-/ejs-2.6.2.tgz#3a32c63d1cd16d11266cd4703b14fec4e74ab4f6"
+  integrity sha512-PcW2a0tyTuPHz3tWyYqtK6r1fZ3gp+3Sop8Ph+ZYN81Ob5rwmbHEzaqs10N3BEsaGTkh/ooniXK+WwszGlc2+Q==
 
 encodeurl@~1.0.2:
   version "1.0.2"

@@ -20,7 +20,10 @@ function default_1(dir) {
         fs.readFile(file, function (err, content) {
             if (err)
                 return next(err);
-            var html = utils_1.markdownToHtml(content.toString());
+            var post = utils_1.parseSourceContent(content.toString());
+            post.content = utils_1.markdownToHtml(post.source);
+            post.layout = post.layout || 'post';
+            var html = utils_1.renderFile(path.resolve(dir, '_layout', post.layout + '.ejs'), post);
             res.send(html);
             res.end();
         });

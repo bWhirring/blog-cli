@@ -2,12 +2,16 @@ import * as express from 'express';
 import * as serverStatic from 'serve-static';
 import * as path from 'path';
 import * as fs from 'fs';
-import * as MarkdownIt from 'markdown-it';
 import * as config from 'config';
 
 const PORT = config.get('PORT');
 
-import { markdownToHtml, stripExtname } from './utils';
+import {
+  markdownToHtml,
+  stripExtname,
+  parseSourceContent,
+  renderFile,
+} from './utils';
 
 export default function(dir = '.') {
   const app = express();
@@ -25,7 +29,15 @@ export default function(dir = '.') {
     fs.readFile(file, (err, content) => {
       if (err) return next(err);
 
-      const html = markdownToHtml(content.toString());
+      const post: any = parseSourceContent(content.toString());
+
+      post.content = markdownToHtml(post.source);
+      post.layout = post.layout || 'post';
+
+      const html = renderFile(
+        path.resolve(dir, '_layout', post.layout + '.ejs'),
+        post
+      );
       res.send(html);
       res.end();
     });
