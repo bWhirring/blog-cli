@@ -64,7 +64,6 @@ export function parseSourceContent(data: string) {
  * @param data 数据
  */
 export function renderFile(file: string, data: Object) {
-  console.log(data, 'data');
   return ejs.render(fs.readFileSync(file).toString(), {
     filename: file,
     locals: data,

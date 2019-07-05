@@ -58,7 +58,6 @@ exports.parseSourceContent = parseSourceContent;
  * @param data 数据
  */
 function renderFile(file, data) {
-    console.log(data, 'data');
     return ejs.render(fs.readFileSync(file).toString(), {
         filename: file,
         locals: data,

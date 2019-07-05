@@ -27,6 +27,16 @@ blog preview [dir]
 ```
 > 访问[链接](http://localhost:3008/posts/2019-07/hello)
 
+[example/_post/**/*.md]
+
+  配置放在`---`里面
+  - title 文章标题
+  - date 时间
+  - layout 模板 默认`post`
+
+
+
+
 
 #### 参考资料
 
