@@ -3,6 +3,11 @@ import * as serverStatic from 'serve-static';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as config from 'config';
+import * as rd from 'rd';
+
+interface iData {
+  [name: string]: any;
+}
 
 const PORT = config.get('PORT');
 
@@ -29,7 +34,7 @@ export default function(dir = '.') {
     fs.readFile(file, (err, content) => {
       if (err) return next(err);
 
-      const post: any = parseSourceContent(content.toString());
+      const post: iData = parseSourceContent(content.toString());
 
       post.content = markdownToHtml(post.source);
       post.layout = post.layout || 'post';
@@ -45,7 +50,25 @@ export default function(dir = '.') {
 
   // 渲染列表
   router.get('/', (req, res, next) => {
-    res.end('list');
+    const list = [];
+
+    const sourceDir = path.resolve(dir, '_posts');
+    rd.eachFileFilterSync(sourceDir, /\.md/, (f: string, s) => {
+      const source = fs.readFileSync(f).toString();
+      const post: iData = parseSourceContent(source);
+      post.timestamp = new Date(post.date);
+
+      post.url = `/posts/${stripExtname(f.slice(sourceDir.length + 1))}.html`;
+
+      list.push(post);
+    });
+
+    list.sort((a, b) => b - a);
+
+    const html = renderFile(path.resolve(dir, '_layout', 'index.ejs'), list);
+
+    res.send(html);
+    res.end();
   });
 
   app.listen(PORT, () => {

@@ -5,6 +5,7 @@ var serverStatic = require("serve-static");
 var path = require("path");
 var fs = require("fs");
 var config = require("config");
+var rd = require("rd");
 var PORT = config.get('PORT');
 var utils_1 = require("./utils");
 function default_1(dir) {
@@ -30,7 +31,19 @@ function default_1(dir) {
     });
     // 渲染列表
     router.get('/', function (req, res, next) {
-        res.end('list');
+        var list = [];
+        var sourceDir = path.resolve(dir, '_posts');
+        rd.eachFileFilterSync(sourceDir, /\.md/, function (f, s) {
+            var source = fs.readFileSync(f).toString();
+            var post = utils_1.parseSourceContent(source);
+            post.timestamp = new Date(post.date);
+            post.url = "/posts/" + utils_1.stripExtname(f.slice(sourceDir.length + 1)) + ".html";
+            list.push(post);
+        });
+        list.sort(function (a, b) { return b - a; });
+        var html = utils_1.renderFile(path.resolve(dir, '_layout', 'index.ejs'), list);
+        res.send(html);
+        res.end();
     });
     app.listen(PORT, function () {
         console.log("server running at http://localhost:" + PORT);
