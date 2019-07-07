@@ -4,6 +4,7 @@ var express = require("express");
 var serverStatic = require("serve-static");
 var path = require("path");
 var config = require("config");
+var open = require("open");
 var PORT = config.get('PORT');
 var utils_1 = require("./utils");
 function default_1(dir) {
@@ -26,9 +27,11 @@ function default_1(dir) {
         res.send(html);
         res.end();
     });
+    var url = "http://localhost:" + PORT;
     app.listen(PORT, function () {
-        console.log("server running at http://localhost:" + PORT);
+        console.log("server running at " + url);
     });
+    open(url);
 }
 exports.default = default_1;
 //# sourceMappingURL=preview.js.map

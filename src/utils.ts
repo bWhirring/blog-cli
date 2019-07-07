@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import * as MarkdownIt from 'markdown-it';
 import * as ejs from 'ejs';
 import * as rd from 'rd';
+import * as config from 'config';
 
 export type FindOneSyncCallback = (filename: string, stats: fs.Stats) => void;
 
@@ -72,6 +73,7 @@ export function parseSourceContent(data: string) {
  */
 export function renderFile(file: string, data: Object) {
   return ejs.render(fs.readFileSync(file).toString(), {
+    config: config.get('config'),
     filename: file,
     locals: data,
   });

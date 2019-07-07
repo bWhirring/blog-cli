@@ -5,6 +5,7 @@ var fs = require("fs");
 var MarkdownIt = require("markdown-it");
 var ejs = require("ejs");
 var rd = require("rd");
+var config = require("config");
 var md = new MarkdownIt({
     html: true,
     langPrefix: 'language-',
@@ -60,6 +61,7 @@ exports.parseSourceContent = parseSourceContent;
  */
 function renderFile(file, data) {
     return ejs.render(fs.readFileSync(file).toString(), {
+        config: config.get('config'),
         filename: file,
         locals: data,
     });

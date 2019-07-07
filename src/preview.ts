@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as serverStatic from 'serve-static';
 import * as path from 'path';
 import * as config from 'config';
+import * as open from 'open';
 
 const PORT = config.get('PORT');
 
@@ -32,7 +33,11 @@ export default function(dir = '.') {
     res.end();
   });
 
+  const url = `http://localhost:${PORT}`;
+
   app.listen(PORT, () => {
-    console.log(`server running at http://localhost:${PORT}`);
+    console.log(`server running at ${url}`);
   });
+
+  open(url);
 }
