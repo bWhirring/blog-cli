@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var commander = require("commander");
 var preview_1 = require("./preview");
 var build_1 = require("./build");
+var create_1 = require("./create");
 var version = require('../package.json').version;
 commander.version(version);
 commander
@@ -15,9 +16,7 @@ commander
 commander
     .command('create [dir]')
     .description('创建一个空的blog')
-    .action(function (dir) {
-    console.log('create %s', dir);
-});
+    .action(create_1.default);
 commander
     .command('preview [dir]')
     .description('实时预览')

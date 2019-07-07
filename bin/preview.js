@@ -17,7 +17,7 @@ function default_1(dir) {
     router.get('/posts/*', function (req, res, next) {
         var name = utils_1.stripExtname(req.params[0]);
         var file = path.resolve(dir, '_posts', name + ".md");
-        var html = utils_1.renderPost(file, dir);
+        var html = utils_1.renderPost(dir, file);
         res.send(html);
         res.end();
     });

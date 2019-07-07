@@ -21,7 +21,7 @@ export default function(dir = '.') {
   router.get('/posts/*', (req, res, next) => {
     const name = stripExtname(req.params[0]);
     const file = path.resolve(dir, '_posts', `${name}.md`);
-    const html = renderPost(file, dir);
+    const html = renderPost(dir, file);
     res.send(html);
     res.end();
   });

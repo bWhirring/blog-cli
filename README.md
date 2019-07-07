@@ -40,6 +40,12 @@ blog preview [dir]
 blog build example or blog build example -o <dir>
 ```
 
+### create
+
+```
+blog create <dir>
+```
+
 
 #### 参考资料
 

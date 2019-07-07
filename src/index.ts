@@ -3,6 +3,7 @@
 import * as commander from 'commander';
 import preview from './preview';
 import build from './build';
+import create from './create';
 
 const { version } = require('../package.json');
 
@@ -18,9 +19,7 @@ commander
 commander
   .command('create [dir]')
   .description('创建一个空的blog')
-  .action(dir => {
-    console.log('create %s', dir);
-  });
+  .action(create);
 
 commander
   .command('preview [dir]')

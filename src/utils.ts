@@ -112,7 +112,6 @@ export function renderIndex(dir: string) {
 // 渲染文章
 export function renderPost(dir: string, file: string) {
   const content = fs.readFileSync(file).toString();
-
   const post: iData = parseSourceContent(content.toString());
 
   post.content = markdownToHtml(post.source);
