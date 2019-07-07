@@ -63,7 +63,7 @@ export default function(dir = '.') {
       list.push(post);
     });
 
-    list.sort((a, b) => b - a);
+    list.sort((a, b) => b.timestamp - a.timestamp);
 
     const html = renderFile(path.resolve(dir, '_layout', 'index.ejs'), list);
 

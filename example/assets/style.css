@@ -32,3 +32,22 @@ code {
   padding: 0;
   word-wrap: normal;
 }
+
+
+ul,
+li {
+  padding: 0;
+  list-style: none;
+}
+
+
+.list time {
+  background: #666;
+  padding: 5px;
+  color: #fff;
+  display: inline-block;
+}
+
+.list li {
+  margin-bottom: 10px;
+}

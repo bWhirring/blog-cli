@@ -40,7 +40,7 @@ function default_1(dir) {
             post.url = "/posts/" + utils_1.stripExtname(f.slice(sourceDir.length + 1)) + ".html";
             list.push(post);
         });
-        list.sort(function (a, b) { return b - a; });
+        list.sort(function (a, b) { return b.timestamp - a.timestamp; });
         var html = utils_1.renderFile(path.resolve(dir, '_layout', 'index.ejs'), list);
         res.send(html);
         res.end();

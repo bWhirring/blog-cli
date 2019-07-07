@@ -7,10 +7,13 @@
   <title><%= locals.title %></title>
   <link rel="stylesheet" href="/assets/style.css">
 </head>
-<body>
+<body class='list'>
   <ul>
   <% for (let i = 0; i < locals.length; i++) { %>
-    <li><a href='<%= locals[i].url %>'><%= locals[i].title %></a></li>
+    <li>
+      <time><%= locals[i].date %></time>
+      <a href='<%= locals[i].url %>'><%= locals[i].title %></a>
+    </li>
   <% } %>
   </ul>
 </body>
