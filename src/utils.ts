@@ -2,6 +2,13 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as MarkdownIt from 'markdown-it';
 import * as ejs from 'ejs';
+import * as rd from 'rd';
+
+export type FindOneSyncCallback = (filename: string, stats: fs.Stats) => void;
+
+interface iData {
+  [name: string]: any;
+}
 
 const md = new MarkdownIt({
   html: true, // 在源码中启用 HTML 标签
@@ -68,4 +75,50 @@ export function renderFile(file: string, data: Object) {
     filename: file,
     locals: data,
   });
+}
+
+// 遍历所有文章
+export function eachSourceFile(
+  sourceDir: string,
+  callback: FindOneSyncCallback
+) {
+  rd.eachFileFilterSync(sourceDir, /\.md$/, callback);
+}
+
+// 渲染文章列表
+export function renderIndex(dir: string) {
+  const list = [];
+
+  const sourceDir = path.resolve(dir, '_posts');
+  eachSourceFile(sourceDir, (f: string) => {
+    const source = fs.readFileSync(f).toString();
+    const post: iData = parseSourceContent(source);
+    post.timestamp = new Date(post.date);
+
+    post.url = `/posts/${stripExtname(f.slice(sourceDir.length + 1))}.html`;
+
+    list.push(post);
+  });
+
+  list.sort((a, b) => b.timestamp - a.timestamp);
+
+  const html = renderFile(path.resolve(dir, '_layout', 'index.ejs'), list);
+
+  return html;
+}
+
+// 渲染文章
+export function renderPost(dir: string, file: string) {
+  const content = fs.readFileSync(file).toString();
+
+  const post: iData = parseSourceContent(content.toString());
+
+  post.content = markdownToHtml(post.source);
+  post.layout = post.layout || 'post';
+
+  const html = renderFile(
+    path.resolve(dir, '_layout', post.layout + '.ejs'),
+    post
+  );
+  return html;
 }

@@ -4,6 +4,7 @@ var path = require("path");
 var fs = require("fs");
 var MarkdownIt = require("markdown-it");
 var ejs = require("ejs");
+var rd = require("rd");
 var md = new MarkdownIt({
     html: true,
     langPrefix: 'language-',
@@ -64,4 +65,35 @@ function renderFile(file, data) {
     });
 }
 exports.renderFile = renderFile;
+// 遍历所有文章
+function eachSourceFile(sourceDir, callback) {
+    rd.eachFileFilterSync(sourceDir, /\.md$/, callback);
+}
+exports.eachSourceFile = eachSourceFile;
+// 渲染文章列表
+function renderIndex(dir) {
+    var list = [];
+    var sourceDir = path.resolve(dir, '_posts');
+    eachSourceFile(sourceDir, function (f) {
+        var source = fs.readFileSync(f).toString();
+        var post = parseSourceContent(source);
+        post.timestamp = new Date(post.date);
+        post.url = "/posts/" + stripExtname(f.slice(sourceDir.length + 1)) + ".html";
+        list.push(post);
+    });
+    list.sort(function (a, b) { return b.timestamp - a.timestamp; });
+    var html = renderFile(path.resolve(dir, '_layout', 'index.ejs'), list);
+    return html;
+}
+exports.renderIndex = renderIndex;
+// 渲染文章
+function renderPost(dir, file) {
+    var content = fs.readFileSync(file).toString();
+    var post = parseSourceContent(content.toString());
+    post.content = markdownToHtml(post.source);
+    post.layout = post.layout || 'post';
+    var html = renderFile(path.resolve(dir, '_layout', post.layout + '.ejs'), post);
+    return html;
+}
+exports.renderPost = renderPost;
 //# sourceMappingURL=utils.js.map

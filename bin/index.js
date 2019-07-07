@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var commander = require("commander");
 var preview_1 = require("./preview");
+var build_1 = require("./build");
 var version = require('../package.json').version;
 commander.version(version);
 commander
@@ -25,9 +26,7 @@ commander
     .command('build [dir]')
     .description('生成静态HTML')
     .option('-o, --output <dir>', '生成的静态HTML存放目录')
-    .action(function (dir, options) {
-    console.log('create %s, output %s', dir, options.output);
-});
+    .action(build_1.default);
 function help() {
     commander.parse(process.argv);
     if (commander.args.length < 1)

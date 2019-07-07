@@ -35,7 +35,10 @@ blog preview [dir]
   - layout 模板 默认`post`
 
 
-
+### build
+```
+blog build example or blog build example -o <dir>
+```
 
 
 #### 参考资料

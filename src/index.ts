@@ -2,6 +2,7 @@
 
 import * as commander from 'commander';
 import preview from './preview';
+import build from './build';
 
 const { version } = require('../package.json');
 
@@ -30,9 +31,7 @@ commander
   .command('build [dir]')
   .description('生成静态HTML')
   .option('-o, --output <dir>', '生成的静态HTML存放目录')
-  .action((dir, options) => {
-    console.log('create %s, output %s', dir, options.output);
-  });
+  .action(build);
 
 function help() {
   commander.parse(process.argv);
